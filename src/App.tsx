@@ -17,13 +17,11 @@ const fetchDataFromFastAPI = async () => {
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="main-wrapper flex justify-center p-4">
-        <div className="main">
-          <Routes>
-            <Route path="/" element={<NotePage></NotePage>} />
-            <Route path="/note/:name" element={<Note />} />
-          </Routes>
-        </div>
+      <div className="main-wrapper flex flex-col justify-center p-4 w-1/2 ml-auto mr-auto">
+        <Routes>
+          <Route path="/" element={<NotePage />} />
+          <Route path="/note/:name" element={<Note />} />
+        </Routes>
       </div>
     </BrowserRouter>
   );

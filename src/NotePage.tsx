@@ -44,12 +44,10 @@ const NotePage = () => {
 
   return (
     <>
-      <div>
-        <div className="flex justify-between">
-          <h1 className="mr-4">Note Logo Placeholder</h1>
-          <div className="flex">
-            <TextField label="search"></TextField>
-          </div>
+      <div className="flex items-center justify-between">
+        <h1 className="mr-4">Note Logo Placeholder</h1>
+        <div>
+          <TextField label="search" />
         </div>
       </div>
       <div>
@@ -73,17 +71,14 @@ const NotePage = () => {
                       <Typography variant="body2">{note.group}</Typography>
                       <div id="tags" className="flex">
                         {note.tags &&
-                          note.tags.map((tag, index) => {
+                          note.tags.map((tag, tagIndex) => {
                             return (
                               <div
                                 id="tag"
+                                key={tagIndex}
                                 className="bg-gray-500 rounded-lg mr-1 p-0.5"
                               >
-                                <Typography
-                                  key={index}
-                                  variant="caption"
-                                  component="p"
-                                >
+                                <Typography variant="caption" component="p">
                                   #{tag}
                                 </Typography>
                               </div>

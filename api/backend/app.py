@@ -2,7 +2,7 @@
 import logging
 
 # PDM
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from backend.utils import JSONResponse
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -22,6 +22,14 @@ app.add_middleware(
 )
 
 app.mount("/static", StaticFiles(directory="./build/static"), name="static")
+
+
+@app.middleware("http")
+async def catch_all(request: Request, call_next):
+    response = await call_next(request)
+    if response.status_code == 404 and not request.url.path.startswith("/api"):
+        return FileResponse("./build/index.html")
+    return response
 
 
 @app.get("/")
