@@ -6,3 +6,9 @@ services:
     container_name: frontend
     ports:
       - "8000:8000"
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
