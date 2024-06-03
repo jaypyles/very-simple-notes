@@ -1,16 +1,15 @@
 import React from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Markdown from "react-markdown";
 import { Divider, Typography } from "@mui/material";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
+import rehypeRaw from "rehype-raw";
 
 const Note = () => {
   const location = useLocation();
   const { state } = location;
   const { name, tags, group, content } = state || {};
-
-  console.log(`CONTENT: ${content}`);
 
   return (
     <>
@@ -42,6 +41,7 @@ const Note = () => {
       <div className="">
         <Markdown
           children={content}
+          rehypePlugins={[rehypeRaw]}
           components={{
             code(props) {
               const { children, className, node, ...rest } = props;

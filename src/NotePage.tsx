@@ -3,9 +3,13 @@ import { useNavigate } from "react-router";
 import {
   List,
   ListItem,
-  ListItemText,
   Typography,
   TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  SelectChangeEvent,
 } from "@mui/material";
 
 interface Note {
@@ -17,7 +21,9 @@ interface Note {
 
 const NotePage = () => {
   const [notes, setNotes] = useState<Array<Note>>([]);
-  const [selectedNote, setSelectedNote] = useState<Note | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchCategory, setSearchCategory] = useState<string>("name");
+
   const navigate = useNavigate();
 
   const fetchNotes = async () => {
@@ -42,54 +48,89 @@ const NotePage = () => {
     getNotes();
   }, []);
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleCategoryChange = (event: SelectChangeEvent) => {
+    setSearchCategory(event.target.value as string);
+  };
+
+  const filteredNotes = notes.filter((note) => {
+    if (searchCategory === "name") {
+      return note.name.toLowerCase().includes(searchQuery.toLowerCase());
+    } else if (searchCategory === "tags") {
+      return note.tags.some((tag) =>
+        tag.toLowerCase().includes(searchQuery.toLowerCase()),
+      );
+    } else if (searchCategory === "group") {
+      return note.group.toLowerCase().includes(searchQuery.toLowerCase());
+    }
+    return false;
+  });
+
   return (
     <>
-      <div className="flex items-center justify-between">
-        <h1 className="mr-4">Note Logo Placeholder</h1>
-        <div>
-          <TextField label="search" />
+      <div className="flex flex-col mb-2">
+        <div className="flex items-center">
+          <TextField
+            label="Search"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            variant="outlined"
+            className="!mr-2"
+            style={{ width: "75%" }}
+          />
+          <FormControl variant="outlined" style={{ width: "25%" }}>
+            <InputLabel>Search by</InputLabel>
+            <Select
+              value={searchCategory}
+              onChange={handleCategoryChange}
+              label="Search by"
+            >
+              <MenuItem value="name">Name</MenuItem>
+              <MenuItem value="tags">Tag</MenuItem>
+              <MenuItem value="group">Group</MenuItem>
+            </Select>
+          </FormControl>
         </div>
       </div>
       <div>
         <List>
-          {notes &&
-            notes.map((note, index) => {
-              return (
-                <ListItem key={index} divider={true}>
-                  <div id="primary">
-                    <Typography variant="body1">
-                      <p
-                        className="m-0 hover:text-sky-500 hover:cursor-pointer"
-                        onClick={() => {
-                          handleOnClickNote(note);
-                        }}
-                      >
-                        {note.name}
-                      </p>
-                    </Typography>
-                    <div id="secondary">
-                      <Typography variant="body2">{note.group}</Typography>
-                      <div id="tags" className="flex">
-                        {note.tags &&
-                          note.tags.map((tag, tagIndex) => {
-                            return (
-                              <div
-                                id="tag"
-                                key={tagIndex}
-                                className="bg-gray-500 rounded-lg mr-1 p-0.5"
-                              >
-                                <Typography variant="caption" component="p">
-                                  #{tag}
-                                </Typography>
-                              </div>
-                            );
-                          })}
-                      </div>
+          {filteredNotes &&
+            filteredNotes.map((note, index) => (
+              <ListItem key={index} divider={true}>
+                <div id="primary">
+                  <Typography variant="body1">
+                    <p
+                      className="m-0 hover:text-sky-500 hover:cursor-pointer"
+                      onClick={() => {
+                        handleOnClickNote(note);
+                      }}
+                    >
+                      {note.name}
+                    </p>
+                  </Typography>
+                  <div id="secondary">
+                    <Typography variant="body2">{note.group}</Typography>
+                    <div id="tags" className="flex">
+                      {note.tags &&
+                        note.tags.map((tag, tagIndex) => (
+                          <div
+                            id="tag"
+                            key={tagIndex}
+                            className="bg-gray-500 rounded-lg mr-1 p-0.5"
+                          >
+                            <Typography variant="caption" component="p">
+                              #{tag}
+                            </Typography>
+                          </div>
+                        ))}
                     </div>
                   </div>
-                </ListItem>
-              );
-            })}
+                </div>
+              </ListItem>
+            ))}
         </List>
       </div>
     </>
