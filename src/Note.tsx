@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Markdown from "react-markdown";
 import { Divider, Typography } from "@mui/material";
@@ -10,7 +10,17 @@ import rehypeRaw from "rehype-raw";
 const Note = () => {
   const location = useLocation();
   const { state } = location;
-  const { name, tags, group, content, dateUploaded } = state || {};
+  const { _id, name, tags, group, dateUploaded } = state || {};
+  const [content, setContent] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      fetch(`/api/get_note_content/${_id}`, {})
+        .then((res) => res.json())
+        .then((res) => setContent(res.content));
+    };
+    fetchContent();
+  }, [_id]);
 
   return (
     <>

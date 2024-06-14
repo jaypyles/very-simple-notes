@@ -4,13 +4,11 @@ import logging
 # PDM
 from fastapi import FastAPI, Request
 from backend.utils import JSONResponse
+from backend.models import GetContent
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from backend.DatabaseFunctions import load_notes_db, get_note_content
-
-# LOCAL
-from api.backend.models import GetContent
 
 LOG = logging.getLogger(__name__)
 
@@ -48,9 +46,10 @@ def get_notes():
     return JSONResponse(notes)
 
 
-@app.get("/api/get_note_content")
-def get_note(get_content: GetContent):
-    get_note_content(get_content.note_id)
+@app.get("/api/get_note_content/{note_id}")
+def get_note(note_id: str):
+    content = get_note_content(note_id)
+    return JSONResponse(content={"content": content})
 
 
 @app.get("/api/get_groups")

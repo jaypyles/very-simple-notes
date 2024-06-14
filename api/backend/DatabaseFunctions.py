@@ -3,6 +3,7 @@ from typing import Any, Optional, TypedDict, cast  # type: ignore [reportAny]
 
 # PDM
 import pymongo
+from bson import ObjectId
 from pymongo.mongo_client import MongoClient
 
 
@@ -47,8 +48,8 @@ def load_notes_db(
 
 def get_note_content(note_id: str):
     client = create_client()
-    note_db = client["note"]
+    note_db = client["notes"]
     note_collection = note_db["note"]
 
-    note = note_collection.find_one({"_id": note_id}, {"content": 1})
+    note = note_collection.find_one({"_id": ObjectId(note_id)}, {"content": 1})
     return note["content"]

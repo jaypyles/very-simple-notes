@@ -18,7 +18,6 @@ interface Note {
   name: string;
   tags: Array<string>;
   group: string;
-  content: string;
   dateUploaded: string;
 }
 
