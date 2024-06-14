@@ -7,7 +7,10 @@ from backend.utils import JSONResponse
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from backend.DatabaseFunctions import load_notes_db
+from backend.DatabaseFunctions import load_notes_db, get_note_content
+
+# LOCAL
+from api.backend.models import GetContent
 
 LOG = logging.getLogger(__name__)
 
@@ -39,8 +42,15 @@ def read_root():
 
 @app.get("/api/get_notes")
 def get_notes():
-    notes = load_notes_db("note")
+    notes = load_notes_db(
+        "note", fields={"name": 1, "tags": 1, "group": 1, "dateUploaded": 1}
+    )
     return JSONResponse(notes)
+
+
+@app.get("/api/get_note_content")
+def get_note(get_content: GetContent):
+    get_note_content(get_content.note_id)
 
 
 @app.get("/api/get_groups")

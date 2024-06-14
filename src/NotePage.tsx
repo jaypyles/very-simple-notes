@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { convertDate } from "./lib";
 import {
   List,
   ListItem,
@@ -13,10 +14,12 @@ import {
 } from "@mui/material";
 
 interface Note {
+  _id: string;
   name: string;
   tags: Array<string>;
   group: string;
   content: string;
+  dateUploaded: string;
 }
 
 const NotePage = () => {
@@ -99,8 +102,15 @@ const NotePage = () => {
         <List>
           {filteredNotes &&
             filteredNotes.map((note, index) => (
-              <ListItem key={index} divider={true}>
-                <div id="primary">
+              <ListItem
+                key={index}
+                divider={true}
+                className="flex flex-col !items-start"
+              >
+                <div
+                  id="primary"
+                  className="flex flex-row justify-between w-full align-middle"
+                >
                   <Typography variant="body1">
                     <p
                       className="m-0 hover:text-sky-500 hover:cursor-pointer"
@@ -111,22 +121,25 @@ const NotePage = () => {
                       {note.name}
                     </p>
                   </Typography>
-                  <div id="secondary">
-                    <Typography variant="body2">{note.group}</Typography>
-                    <div id="tags" className="flex">
-                      {note.tags &&
-                        note.tags.map((tag, tagIndex) => (
-                          <div
-                            id="tag"
-                            key={tagIndex}
-                            className="bg-gray-500 rounded-lg mr-1 p-0.5"
-                          >
-                            <Typography variant="caption" component="p">
-                              #{tag}
-                            </Typography>
-                          </div>
-                        ))}
-                    </div>
+                  <Typography variant="body2">
+                    <p className="m-0">{convertDate(note.dateUploaded)}</p>
+                  </Typography>
+                </div>
+                <div id="secondary">
+                  <Typography variant="body2">{note.group}</Typography>
+                  <div id="tags" className="flex">
+                    {note.tags &&
+                      note.tags.map((tag, tagIndex) => (
+                        <div
+                          id="tag"
+                          key={tagIndex}
+                          className="bg-gray-500 rounded-lg mr-1 p-0.5"
+                        >
+                          <Typography variant="caption" component="p">
+                            #{tag}
+                          </Typography>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </ListItem>

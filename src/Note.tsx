@@ -3,19 +3,21 @@ import { useLocation } from "react-router-dom";
 import Markdown from "react-markdown";
 import { Divider, Typography } from "@mui/material";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { convertDate } from "./lib";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 import rehypeRaw from "rehype-raw";
 
 const Note = () => {
   const location = useLocation();
   const { state } = location;
-  const { name, tags, group, content } = state || {};
+  const { name, tags, group, content, dateUploaded } = state || {};
 
   return (
     <>
-      <Typography variant="h4" component="h4">
-        {name}
-      </Typography>
+      <div className="flex flex-row items-center justify-between w-full">
+        <Typography variant="h4">{name}</Typography>
+        <Typography variant="body2">{convertDate(dateUploaded)}</Typography>
+      </div>
       <div className="flex">
         <Typography variant="body1" component="p" style={{ marginRight: 4 }}>
           {group}
