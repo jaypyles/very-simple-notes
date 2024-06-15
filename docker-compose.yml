@@ -1,9 +1,9 @@
 version: "3"
 services:
-  frontend:
+  very-simple-notes:
     build:
       context: ./
-    container_name: frontend
+    container_name: very-simple-notes
     ports:
       - "8000:8000"
   mongo:

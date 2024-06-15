@@ -1,3 +1,16 @@
+# Build npm dependencies
+FROM node:latest as nodebuilder
+
+WORKDIR /project
+COPY package*.json ./
+COPY public /project/public
+COPY src /project/src
+COPY tailwind.config.js /project/tailwind.config.js
+COPY tsconfig.json /project/tsconfig.json
+
+RUN npm install
+RUN npm run build
+
 # Build python dependencies
 FROM python:3.10-slim AS pybuilder
 
@@ -7,7 +20,6 @@ RUN pdm config python.use_venv false
 
 COPY pyproject.toml pdm.lock /project/app/
 COPY ./api /project/app/api
-COPY ./build/ /project/app/build
 
 WORKDIR /project/app
 RUN pdm install
@@ -19,6 +31,7 @@ ENV PYTHONPATH=/project/pkgs
 COPY --from=pybuilder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
 COPY --from=pybuilder /usr/local/bin /usr/local/bin
 COPY --from=pybuilder /project/app /project/
+COPY --from=nodebuilder /project/build /project/build
 
 EXPOSE 8000
 

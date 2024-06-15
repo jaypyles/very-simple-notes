@@ -3,11 +3,13 @@ import logging
 
 # PDM
 from fastapi import FastAPI, Request
-from backend.utils import JSONResponse
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from backend.DatabaseFunctions import load_notes_db, get_note_content
+
+# LOCAL
+from api.backend.utils import JSONResponse
+from api.backend.DatabaseFunctions import load_notes_db, get_note_content
 
 LOG = logging.getLogger(__name__)
 
