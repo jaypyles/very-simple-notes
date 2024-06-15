@@ -10,7 +10,11 @@ All notes are stored in MongoDB and delivered to the webapp, rendering the conte
 
 - Search notes by name, group, or tag
 
+![List of notes](https://github.com/jaypyles/very-simple-notes/blob/master/docs/NoteList.png)
+
 - View individual note content
+
+![Individual note](https://github.com/jaypyles/very-simple-notes/blob/master/docs/SingleNote.png)
 
 ## Deployment Guide
 
