@@ -1,6 +1,6 @@
 # Very Simple Notes
 
-It's in the name. A tool used to generate static-webpages using markdown content.
+It's in the name. A tool used to generate and render static-webpages using markdown content.
 
 ## How does this work?
 
