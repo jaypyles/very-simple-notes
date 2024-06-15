@@ -4,7 +4,6 @@ import logging
 # PDM
 from fastapi import FastAPI, Request
 from backend.utils import JSONResponse
-from backend.models import GetContent
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
