@@ -20,7 +20,7 @@ class Note(Document):
 
 
 def create_client() -> MongoClient[Any]:
-    return pymongo.MongoClient("mongodb://root:example@vns-mongo:27017")
+    return pymongo.MongoClient("mongodb://root:example@vsn-mongo:27017")
 
 
 def load(
