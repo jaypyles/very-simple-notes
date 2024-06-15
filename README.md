@@ -12,6 +12,10 @@ All notes are stored in MongoDB and delivered to the webapp, rendering the conte
 
 - View individual note content
 
+## Deployment Guide
+
+`make build up` will deploy the container and start it.
+
 ### Todo
 
 - [ ] Create Obsidian Plugin to directly upload notes
