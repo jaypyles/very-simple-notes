@@ -6,7 +6,7 @@ RUN python -m pip --no-cache-dir install pdm
 RUN pdm config python.use_venv false
 
 COPY pyproject.toml pdm.lock /project/app/
-COPY ./api/backend/ /project/app/backend
+COPY ./api /project/app/api
 COPY ./build/ /project/app/build
 
 WORKDIR /project/app

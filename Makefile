@@ -1,6 +1,8 @@
 .PHONY: build up deps
 
 deps:
+	pdm sync
+	npm install
 	npm run build
 
 build:
