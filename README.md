@@ -1,6 +1,7 @@
 # Very Simple Notes
 
 It's in the name. A tool used to generate and render static-webpages using markdown content.
+
 [Companion Obsidian Plugin](https://github.com/jaypyles/very-simple-notes-obsidian)
 
 ## How does this work?
