@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { convertDate } from "./lib";
+import InputBase from "@mui/material/InputBase";
 import {
   List,
   ListItem,
@@ -12,6 +13,7 @@ import {
   InputLabel,
   SelectChangeEvent,
 } from "@mui/material";
+import { styled } from "@mui/system";
 
 interface Note {
   _id: string;
@@ -33,7 +35,6 @@ const NotePage = () => {
       const response = await fetch("/api/get_notes");
       const data = await response.json();
       setNotes(data);
-      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -79,11 +80,9 @@ const NotePage = () => {
             label="Search"
             value={searchQuery}
             onChange={handleSearchChange}
-            variant="outlined"
-            className="!mr-2"
-            style={{ width: "75%" }}
+            className="!mr-2 w-3/4 max-sm:w-1/2"
           />
-          <FormControl variant="outlined" style={{ width: "25%" }}>
+          <FormControl className="w-1/4 max-sm:w-1/2">
             <InputLabel>Search by</InputLabel>
             <Select
               value={searchCategory}
@@ -110,16 +109,14 @@ const NotePage = () => {
                   id="primary"
                   className="flex flex-row justify-between w-full align-middle"
                 >
-                  <Typography variant="body1">
-                    <p
-                      className="m-0 hover:text-sky-500 hover:cursor-pointer"
-                      onClick={() => {
-                        handleOnClickNote(note);
-                      }}
-                    >
-                      {note.name}
-                    </p>
-                  </Typography>
+                  <p
+                    className="m-0 hover:text-sky-500 hover:cursor-pointer !font-bold"
+                    onClick={() => {
+                      handleOnClickNote(note);
+                    }}
+                  >
+                    {note.name}
+                  </p>
                   <Typography variant="body2">
                     <p className="m-0">{convertDate(note.dateUploaded)}</p>
                   </Typography>

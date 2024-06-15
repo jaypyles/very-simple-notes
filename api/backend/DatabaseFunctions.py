@@ -12,10 +12,11 @@ class Document(TypedDict):
 
 
 class Note(Document):
-    name: str
-    tags: list[str]
-    group: str
-    dateUploaded: str
+    name: Optional[str]
+    tags: Optional[list[str]]
+    group: Optional[str]
+    dateUploaded: Optional[str]
+    content: Optional[str]
 
 
 def create_client() -> MongoClient[Any]:
@@ -46,10 +47,12 @@ def load_notes_db(
     return notes
 
 
-def get_note_content(note_id: str):
+def get_note_content(note_id: str) -> Optional[str]:
     client = create_client()
     note_db = client["notes"]
     note_collection = note_db["note"]
 
-    note = note_collection.find_one({"_id": ObjectId(note_id)}, {"content": 1})
-    return note["content"]
+    note: Optional[Note] = note_collection.find_one(
+        {"_id": ObjectId(note_id)}, {"content": 1}
+    )
+    return note["content"] if note else None

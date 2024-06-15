@@ -25,7 +25,9 @@ const Note = () => {
   return (
     <>
       <div className="flex flex-row items-center justify-between w-full">
-        <Typography variant="h4">{name}</Typography>
+        <Typography variant="h3" style={{ fontWeight: 600 }}>
+          <h3 className="text-5xl max-sm:text-[2rem]">{name}</h3>
+        </Typography>
         <Typography variant="body2">{convertDate(dateUploaded)}</Typography>
       </div>
       <div className="flex">

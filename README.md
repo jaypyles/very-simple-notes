@@ -1,25 +1,17 @@
-# Webapp Template
+# Very Simple Notes
 
-Template designed to quickly build full stack apps.
+It's in the name. A tool used to generate static-webpages using markdown content.
 
-## Technologies
+## How does this work?
 
-- Containerization: Docker/Docker Compose
+All notes are stored in MongoDB and delivered to the webapp, rendering the content to the page using `React-Markdown`.
 
-- Frontend: React.ts
+## Features
 
-- Backend: FastAPI
+- Search notes by name, group, or tag
 
-- Frameworks/Libraries: PDM, tailwindcss
+- View individual note content
 
-## Deployment
+### Todo
 
-Uses `make` to quickly dispatch `docker-compose` commands.
-
-- `build`: builds the container using `docker-compose build `
-
-- `up`: ups the container using `docker-compose up`
-
-- `deps`: rebuilds the frontend to deploy statically using the api
-
-Ex: `make deps build up`
+- [ ] Create Obsidian Plugin to directly upload notes

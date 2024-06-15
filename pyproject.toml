@@ -1,9 +1,9 @@
 [project]
-name = "WebappTemplate"
+name = "very_simple_notes"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Jayden Pyles", email = "jpylesbuisness@gmail.com"},
+    {name = "Jayden Pyles", email = "jpylesbusiness@gmail.com"},
 ]
 dependencies = [
     "uvicorn>=0.29.0",
