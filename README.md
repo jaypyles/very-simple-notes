@@ -1,6 +1,8 @@
 # Very Simple Notes
 
-It's in the name. A tool used to generate static-webpages using markdown content.
+It's in the name. A tool used to generate and render static-webpages using markdown content.
+
+[Companion Obsidian Plugin](https://github.com/jaypyles/very-simple-notes-obsidian)
 
 ## How does this work?
 
@@ -19,7 +21,3 @@ All notes are stored in MongoDB and delivered to the webapp, rendering the conte
 ## Deployment Guide
 
 `make build up` will deploy the container and start it.
-
-### Todo
-
-- [ ] Create Obsidian Plugin to directly upload notes
