@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router";
 import { convertDate } from "./lib";
-import InputBase from "@mui/material/InputBase";
 import {
   List,
   ListItem,
@@ -13,7 +12,6 @@ import {
   InputLabel,
   SelectChangeEvent,
 } from "@mui/material";
-import { styled } from "@mui/system";
 
 interface Note {
   _id: string;
@@ -40,37 +38,42 @@ const NotePage = () => {
     }
   };
 
-  const handleOnClickNote = (note: Note) => {
-    navigate(`/note/${note.name}`, { state: note });
-  };
+  const handleOnClickNote = useCallback(
+    (note: Note) => {
+      navigate(`/note/${note.name}`, { state: note });
+    },
+    [navigate],
+  );
 
   useEffect(() => {
-    const getNotes = async () => {
-      fetchNotes();
-    };
-    getNotes();
+    fetchNotes();
   }, []);
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
-  };
+  const handleSearchChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchQuery(event.target.value);
+    },
+    [],
+  );
 
-  const handleCategoryChange = (event: SelectChangeEvent) => {
+  const handleCategoryChange = useCallback((event: SelectChangeEvent) => {
     setSearchCategory(event.target.value as string);
-  };
+  }, []);
 
-  const filteredNotes = notes.filter((note) => {
-    if (searchCategory === "name") {
-      return note.name.toLowerCase().includes(searchQuery.toLowerCase());
-    } else if (searchCategory === "tags") {
-      return note.tags.some((tag) =>
-        tag.toLowerCase().includes(searchQuery.toLowerCase()),
-      );
-    } else if (searchCategory === "group") {
-      return note.group.toLowerCase().includes(searchQuery.toLowerCase());
-    }
-    return false;
-  });
+  const filteredNotes = useMemo(() => {
+    return notes.filter((note) => {
+      if (searchCategory === "name") {
+        return note.name.toLowerCase().includes(searchQuery.toLowerCase());
+      } else if (searchCategory === "tags") {
+        return note.tags.some((tag) =>
+          tag.toLowerCase().includes(searchQuery.toLowerCase()),
+        );
+      } else if (searchCategory === "group") {
+        return note.group.toLowerCase().includes(searchQuery.toLowerCase());
+      }
+      return false;
+    });
+  }, [notes, searchCategory, searchQuery]);
 
   return (
     <>
@@ -99,7 +102,7 @@ const NotePage = () => {
       <div>
         <List>
           {filteredNotes &&
-            filteredNotes.map((note, index) => (
+            filteredNotes.map((note: Note, index: number) => (
               <ListItem
                 key={index}
                 divider={true}

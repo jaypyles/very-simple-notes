@@ -26,11 +26,6 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory="./build/static"), name="static")
 
 
-@app.get("/favicon.png")
-def read_favicon():
-    return FileResponse("./build/favicon.png")
-
-
 @app.middleware("http")
 async def catch_all(request: Request, call_next):
     response = await call_next(request)
@@ -42,6 +37,11 @@ async def catch_all(request: Request, call_next):
 @app.get("/")
 def read_root():
     return FileResponse("./build/index.html")
+
+
+@app.get("/favicon.png")
+def read_favicon():
+    return FileResponse("./build/favicon.png")
 
 
 @app.get("/api/get_notes")

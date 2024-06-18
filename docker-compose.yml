@@ -6,6 +6,8 @@ services:
     container_name: very-simple-notes
     ports:
       - "8000:8000"
+    networks:
+      - vsn
   mongo:
     container_name: vsn-mongo
     image: mongo
@@ -13,3 +15,9 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - vsn
+networks:
+  vsn:
+    external:
+      name: vsn
