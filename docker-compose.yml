@@ -1,6 +1,7 @@
 version: "3"
 services:
   very-simple-notes:
+    image: jpyles0524/very_simple_notes:latest
     build:
       context: ./
     container_name: very-simple-notes

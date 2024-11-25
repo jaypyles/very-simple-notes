@@ -14,7 +14,7 @@ RUN npm run build
 # Build python dependencies
 FROM python:3.10-slim AS pybuilder
 
-RUN apt update && apt install -y uvicorn curl
+RUN apt update && apt install -y uvicorn
 RUN python -m pip --no-cache-dir install pdm
 RUN pdm config python.use_venv false
 
@@ -26,6 +26,8 @@ RUN pdm install
 
 # Create final image
 FROM python:3.10-slim
+
+RUN apt update && apt install -y curl
 
 ENV PYTHONPATH=/project/pkgs
 COPY --from=pybuilder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages

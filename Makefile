@@ -13,3 +13,7 @@ up:
 
 up-dev:
 	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+
+pull:
+	docker-compose pull
+	
