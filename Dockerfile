@@ -14,7 +14,7 @@ RUN npm run build
 # Build python dependencies
 FROM python:3.10-slim AS pybuilder
 
-RUN apt update && apt install -y uvicorn
+RUN apt update && apt install -y uvicorn curl
 RUN python -m pip --no-cache-dir install pdm
 RUN pdm config python.use_venv false
 
