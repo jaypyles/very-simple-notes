@@ -1,5 +1,4 @@
 import React from "react";
-import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -10,7 +9,7 @@ const darkTheme = createTheme({
 });
 
 interface LayoutProps {
-  children: ReactJSXElement;
+  children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
