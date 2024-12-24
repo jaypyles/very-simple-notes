@@ -86,5 +86,7 @@ spec:
   ports:
     - port: 27017
       targetPort: 27017
+      nodePort: 30126
       protocol: TCP
       name: mongo
+  type: NodePort

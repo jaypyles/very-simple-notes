@@ -42,7 +42,7 @@ const NotePage = () => {
     (note: Note) => {
       navigate(`/note/${note.name}`, { state: note });
     },
-    [navigate],
+    [navigate]
   );
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const NotePage = () => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearchQuery(event.target.value);
     },
-    [],
+    []
   );
 
   const handleCategoryChange = useCallback((event: SelectChangeEvent) => {
@@ -66,7 +66,7 @@ const NotePage = () => {
         return note.name.toLowerCase().includes(searchQuery.toLowerCase());
       } else if (searchCategory === "tags") {
         return note.tags.some((tag) =>
-          tag.toLowerCase().includes(searchQuery.toLowerCase()),
+          tag.toLowerCase().includes(searchQuery.toLowerCase())
         );
       } else if (searchCategory === "group") {
         return note.group.toLowerCase().includes(searchQuery.toLowerCase());
@@ -102,7 +102,7 @@ const NotePage = () => {
       <div>
         <List>
           {filteredNotes &&
-            filteredNotes.map((note: Note, index: number) => (
+            filteredNotes.reverse().map((note: Note, index: number) => (
               <ListItem
                 key={index}
                 divider={true}
