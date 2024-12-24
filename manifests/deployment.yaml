@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: very-simple-notes
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: very-simple-notes
+  template:
+    metadata:
+      labels:
+        app: very-simple-notes
+    spec:
+      containers:
+        - name: very-simple-notes
+          image: jpyles0524/very_simple_notes:latest
+          ports:
+            - containerPort: 8000
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: very-simple-notes-mongo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: very-simple-notes-mongo
+  template:
+    metadata:
+      labels:
+        app: very-simple-notes-mongo
+    spec:
+      containers:
+        - name: very-simple-notes-mongo
+          image: mongo
+          ports:
+            - containerPort: 27017
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db
+              subPath: vsn/data
+      volumes:
+        - name: mongo-data
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: very-simple-notes
+  namespace: default
+spec:
+  selector:
+    app: very-simple-notes  
+  ports:
+    - port: 8000
+      targetPort: 8000
+      nodePort: 30125
+      protocol: TCP
+      name: http
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vsn-mongo
+  namespace: default
+spec:
+  selector:
+    app: very-simple-notes-mongo
+  ports:
+    - port: 27017
+      targetPort: 27017
+      protocol: TCP
+      name: mongo
