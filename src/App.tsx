@@ -7,7 +7,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<NoteList />} />
-        <Route path="/note/:name" element={<SingleNote />} />
+        <Route path="/note/:_id" element={<SingleNote />} />
       </Routes>
     </BrowserRouter>
   );

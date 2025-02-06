@@ -54,8 +54,8 @@ def get_notes():
 
 @app.get("/api/get_note_content/{note_id}")
 def get_note(note_id: str):
-    content = get_note_content(note_id)
-    return JSONResponse(content={"content": content})
+    note = get_note_content(note_id)
+    return JSONResponse(content={"note": note})
 
 
 @app.get("/api/get_groups")

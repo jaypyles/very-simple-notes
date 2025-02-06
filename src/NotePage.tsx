@@ -40,7 +40,7 @@ const NotePage = () => {
 
   const handleOnClickNote = useCallback(
     (note: Note) => {
-      navigate(`/note/${note.name}`, { state: note });
+      navigate(`/note/${note._id}`, { state: note });
     },
     [navigate]
   );

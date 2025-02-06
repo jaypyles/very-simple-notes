@@ -7,8 +7,7 @@ from bson import ObjectId
 from pymongo.mongo_client import MongoClient
 
 
-class Document(TypedDict):
-    ...
+class Document(TypedDict): ...
 
 
 class Note(Document):
@@ -47,12 +46,13 @@ def load_notes_db(
     return notes
 
 
-def get_note_content(note_id: str) -> Optional[str]:
+def get_note_content(note_id: str) -> Optional[Note]:
     client = create_client()
     note_db = client["notes"]
     note_collection = note_db["note"]
 
     note: Optional[Note] = note_collection.find_one(
-        {"_id": ObjectId(note_id)}, {"content": 1}
+        {"_id": ObjectId(note_id)},
+        {"content": 1, "name": 1, "tags": 1, "group": 1, "dateUploaded": 1},
     )
-    return note["content"] if note else None
+    return note if note else None

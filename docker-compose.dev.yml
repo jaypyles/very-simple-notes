@@ -1,6 +1,5 @@
-version: "3"
 services:
-  frontend:
+  very-simple-notes:
     volumes:
       - "$PWD/build:/project/build"
       - "$PWD/api/backend:/project/api/backend"

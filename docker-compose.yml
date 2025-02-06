@@ -1,4 +1,3 @@
-version: "3"
 services:
   very-simple-notes:
     image: jpyles0524/very_simple_notes:latest
@@ -20,5 +19,5 @@ services:
       - vsn
 networks:
   vsn:
-    external:
-      name: vsn
+    external: true
+    name: vsn
