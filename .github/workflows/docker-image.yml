@@ -44,6 +44,7 @@ jobs:
         with:
           chart_path: "./charts/very-simple-notes"
           chart_name: "very-simple-notes"
+          gpat_token: "${{ secrets.GPAT_TOKEN }}"
           helm_repo_url: "${{ secrets.HELM_URL }}"
           target_repo: "jaypyles/helm-charts"
           branch: "master"
