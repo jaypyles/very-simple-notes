@@ -44,5 +44,5 @@ jobs:
           github_token: ${{ secrets.GPAT_TOKEN }}
           helm_repo_url: '${{ secrets.HELM_URL }}'
           target_repo: 'jaypyles/helm-charts'
-          branch: 'main'
+          branch: 'master'
           new_version: '1.0.1'
