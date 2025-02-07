@@ -32,6 +32,9 @@ jobs:
 
   helm-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,10 +42,9 @@ jobs:
       - name: Publish Helm Chart
         uses: jaypyles/helm-chart-publisher@main
         with:
-          chart_path: './charts/very-simple-notes'
-          chart_name: 'very-simple-notes'
-          github_token: ${{ secrets.GPAT_TOKEN }}
-          helm_repo_url: '${{ secrets.HELM_URL }}'
-          target_repo: 'jaypyles/helm-charts'
-          branch: 'master'
-          new_version: '1.0.1'
+          chart_path: "./charts/very-simple-notes"
+          chart_name: "very-simple-notes"
+          helm_repo_url: "${{ secrets.HELM_URL }}"
+          target_repo: "jaypyles/helm-charts"
+          branch: "master"
+          new_version: "1.0.1"
