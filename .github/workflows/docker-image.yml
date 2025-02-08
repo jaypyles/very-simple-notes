@@ -37,7 +37,9 @@ jobs:
 
       - name: Update version
         id: update_version
-        run: echo "version=$(./versioning.sh patch)" >> $GITHUB_ENV
+        run: |
+          version=$(./versioning.sh patch)
+          echo "version=${version}" >> $GITHUB_ENV
 
       - name: Display version
         run: echo "The new version is ${{ env.version }}"

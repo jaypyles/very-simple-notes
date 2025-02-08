@@ -16,6 +16,4 @@ elif [ "$VERSION_TYPE" == "major" ]; then
   new_version=$(echo $current_version | awk -F. -v OFS=. '{$1++; $2=0; $3=0; print}')
 fi
 
-echo "New version of Chart.yaml: $new_version"
-# echo "New version of Chart.yaml: $new_version" | grep -oP 'New version of Chart.yaml:\s*\K[0-9]+\.[0-9]+\.[0-9]+'
-exit 0
+echo "$new_version"
