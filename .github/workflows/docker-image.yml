@@ -38,11 +38,10 @@ jobs:
       - name: Update version
         id: update_version
         run: |
-          version=$(./versioning.sh patch)
-          echo "version=${version}" >> $GITHUB_ENV
+          echo "VERSION=$(./versioning.sh patch)" >> $GITHUB_ENV
 
       - name: Display version
-        run: echo "The new version is ${{ env.version }}"
+        run: echo "The new version is ${{ env.VERSION }}"
 
   helm-deploy:
     runs-on: ubuntu-latest
@@ -63,4 +62,4 @@ jobs:
           helm_repo_url: "${{ secrets.HELM_URL }}"
           target_repo: "jaypyles/helm-charts"
           branch: "master"
-          new_version: ${{ env.version }}
+          new_version: ${{ env.VERSION }}

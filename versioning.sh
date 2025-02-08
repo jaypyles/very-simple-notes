@@ -4,8 +4,7 @@
 VERSION_TYPE=$1 # patch, minor, major
 
 # Get the current version from the Chart.yaml file
-current_version=$(grep -oP 'version:\s*\K[0-9]+\.[0-9]+\.[0-9]+' charts/very-simple-notes/Chart.yaml)
-echo "Current version of Chart.yaml: $current_version"
+current_version=$(grep -oP 'version:\s*\K[0-9]+\.[0-9]+\.[0-9]+' charts/very-simple-notes/Chart.yaml | tr -d '[:space:]')
 
 # Increment the version number
 if [ "$VERSION_TYPE" == "patch" ]; then
@@ -16,4 +15,5 @@ elif [ "$VERSION_TYPE" == "major" ]; then
   new_version=$(echo $current_version | awk -F. -v OFS=. '{$1++; $2=0; $3=0; print}')
 fi
 
+# Output the new version
 echo "$new_version"
