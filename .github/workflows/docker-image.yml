@@ -46,6 +46,7 @@ jobs:
 
   helm-deploy:
     runs-on: ubuntu-latest
+    needs: update-version
     permissions:
       contents: write
       packages: write
