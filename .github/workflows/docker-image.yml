@@ -30,6 +30,18 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/very_simple_notes:latest
 
+  update-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update version
+        id: update_version
+        run: echo "version=$(./versioning.sh patch)" >> $GITHUB_ENV
+
+      - name: Display version
+        run: echo "The new version is ${{ env.version }}"
+
   helm-deploy:
     runs-on: ubuntu-latest
     permissions:
@@ -48,4 +60,4 @@ jobs:
           helm_repo_url: "${{ secrets.HELM_URL }}"
           target_repo: "jaypyles/helm-charts"
           branch: "master"
-          new_version: "1.0.1"
+          new_version: ${{ env.version }}
