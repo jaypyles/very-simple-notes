@@ -54,6 +54,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Display version
+        run: echo "The new version is ${{ needs.update-version.outputs.VERSION }}"
+
       - name: Publish Helm Chart
         uses: jaypyles/helm-chart-publisher@main
         with:
