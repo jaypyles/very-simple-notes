@@ -39,14 +39,6 @@ spec:
       labels:
         app: very-simple-notes-mongo
     spec:
-      initContainers:
-        - name: fix-permissions
-          image: busybox
-          command: ["sh", "-c", "chown -R 999:999 /data/db"]
-          volumeMounts:
-            - name: mongo-data
-              mountPath: /data/db
-              subPath: vsn/data
       containers:
         - name: very-simple-notes-mongo
           image: mongo
