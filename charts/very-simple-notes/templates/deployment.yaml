@@ -39,6 +39,8 @@ spec:
       labels:
         app: very-simple-notes-mongo
     spec:
+      securityContext:
+        fsGroup: 999   # Ensure MongoDB can write to the NFS volume
       containers:
         - name: very-simple-notes-mongo
           image: mongo
@@ -48,6 +50,10 @@ spec:
             limits:
               cpu: 500m
               memory: 512Mi
+          securityContext:
+            runAsUser: 999   # Run MongoDB as the correct user
+            runAsGroup: 999   # Set the group to match fsGroup
+            allowPrivilegeEscalation: false
           volumeMounts:
             - name: mongo-data
               mountPath: /data/db
